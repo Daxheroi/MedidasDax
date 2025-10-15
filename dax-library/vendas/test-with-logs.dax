@@ -1,0 +1,7 @@
+-- Test With Logs
+-- Categoria: Vendas
+-- Descrição: Teste final com logs completos
+
+-- Data: 2025-10-15T20:46:19.713Z
+
+Total Vendas = SUM(Vendas[Valor])
