@@ -1,0 +1,7 @@
+-- Teste Criacao Repo
+-- Categoria: Vendas
+-- Descrição: Teste de criação automática do repositório
+
+-- Data: 2025-10-15T20:44:32.922Z
+
+Total = SUM(Vendas[Valor])
