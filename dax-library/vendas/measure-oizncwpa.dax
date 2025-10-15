@@ -1,0 +1,7 @@
+-- Measure_OiZNCWPA
+-- Categoria: Vendas
+-- Descrição: Código otimizado pela IA
+
+-- Data: 2025-10-15T21:13:10.273Z
+
+Total Vendas = SUM(Vendas[Valor])
