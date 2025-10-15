@@ -1,0 +1,7 @@
+-- medida-UWiaelDhif
+-- Categoria: Vendas
+-- Descrição: Medida otimizada pela IA - teste GitHub integration
+
+-- Data: 2025-10-15T20:48:53.009Z
+
+Vendas = COUNT(Pedidos[ID]) * [Forecast Diario]
