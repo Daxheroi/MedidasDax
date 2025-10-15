@@ -1,0 +1,7 @@
+-- Teste-iyM2ulYu
+-- Categoria: Vendas
+-- Descrição: Medida de teste - soma total de vendas
+
+-- Data: 2025-10-15T20:05:34.357Z
+
+Total Vendas = SUM(Vendas[Valor])
