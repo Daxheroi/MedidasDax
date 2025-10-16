@@ -1,0 +1,33 @@
+-- Medida toggle — mostra receita ou a receita real (R$) conforme um slicer
+-- Categoria: Outro
+-- Descrição: Medida toggle — mostra receita ou a receita real (R$) conforme um slicer
+
+-- Data: 2025-10-16T05:02:54.136Z
+
+Receita ou ReceitaReal = 
+VAR ModoSelecionado = SELECTEDVALUE( Modo[Modo], "Normal" )
+VAR ReceitaBrig = 
+    "Receita de Brigadeiro:" & UNICHAR(10) &
+    "- 1 lata de leite condensado" & UNICHAR(10) &
+    "- 1 colher (sopa) de manteiga" & UNICHAR(10) &
+    "- 7 colheres (sopa) de chocolate em pó" & UNICHAR(10) &
+    "Modo: Misture e cozinhe até desgrudar."
+
+VAR ReceitaBolo =
+    "Receita de Bolo Simples:" & UNICHAR(10) &
+    "- 3 ovos" & UNICHAR(10) &
+    "- 2 xícaras de açúcar" & UNICHAR(10) &
+    "- 3 xícaras de farinha" & UNICHAR(10) &
+    "- 1 xícara de leite" & UNICHAR(10) &
+    "Modo: Misture, asse 35-40 min a 180°C."
+
+VAR ReceitaRealValor = FORMAT( SUM( Vendas[Valor] ), "R$ #,##0.00" )
+
+RETURN
+SWITCH(
+    TRUE(),
+    ModoSelecionado = "Brigadeiro", ReceitaBrig,
+    ModoSelecionado = "Bolo", ReceitaBolo,
+    -- padrão: mostra a métrica financeira
+    "Receita Real: " & UNICHAR(10) & ReceitaRealValor
+)
