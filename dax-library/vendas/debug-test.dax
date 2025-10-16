@@ -1,7 +1,0 @@
--- Debug Test
--- Categoria: Vendas
--- Descrição: Teste com logs de debug
-
--- Data: 2025-10-15T20:45:47.605Z
-
-Vendas Total = SUM(Vendas[Valor])

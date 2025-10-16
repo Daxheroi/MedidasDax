@@ -1,7 +1,0 @@
--- measure-G71QXetBAl
--- Categoria: Vendas
--- Descrição: Medida salva com GitHub integration
-
--- Data: 2025-10-15T20:51:33.057Z
-
-Total Vendas = SUM(Vendas[Valor])

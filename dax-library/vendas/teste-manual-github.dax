@@ -1,7 +1,0 @@
--- Teste Manual GitHub
--- Categoria: Vendas
--- Descrição: Teste de commit no GitHub
-
--- Data: 2025-10-15T20:43:22.364Z
-
-Total Vendas = SUM(Vendas[Valor])

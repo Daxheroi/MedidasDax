@@ -1,7 +1,0 @@
--- TestOptimizedRirv6r
--- Categoria: Vendas
--- Descrição: Saved optimized code test
-
--- Data: 2025-10-15T21:16:42.337Z
-
-Vendas = SUMX(VALUES(Pedidos[Data]), [Forecast Diario Por Dia])
