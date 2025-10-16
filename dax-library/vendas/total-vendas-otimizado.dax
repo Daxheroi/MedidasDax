@@ -1,0 +1,6 @@
+-- Total Vendas Otimizado
+-- Categoria: Vendas
+
+-- Data: 2025-10-16T13:06:46.787Z
+
+Total = SUM(Vendas[Valor])
