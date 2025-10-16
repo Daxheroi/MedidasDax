@@ -1,0 +1,7 @@
+-- Total Vendas e Custos
+-- Categoria: Vendas
+-- Descrição: Soma total de vendas e custos
+
+-- Data: 2025-10-16T12:48:46.324Z
+
+Total = SUM(Vendas[Valor]) + SUM(Custos[Valor])
