@@ -1,0 +1,17 @@
+-- Receita Brigadeiro (Pegadinha)
+-- Categoria: Outro
+-- Descrição: 1) Receita de Brigadeiro (medida simples — texto com quebras)
+
+-- Data: 2025-10-16T05:01:48.629Z
+
+Receita Brigadeiro (Pegadinha) =
+"Receita de Brigadeiro:" & UNICHAR(10) &
+"Ingredientes:" & UNICHAR(10) &
+"- 1 lata de leite condensado" & UNICHAR(10) &
+"- 1 colher (sopa) de manteiga" & UNICHAR(10) &
+"- 7 colheres (sopa) de chocolate em pó" & UNICHAR(10) &
+UNICHAR(10) &
+"Modo de Preparo:" & UNICHAR(10) &
+"1) Misture tudo em uma panela." & UNICHAR(10) &
+"2) Cozinhe em fogo médio, mexendo sempre, até desgrudar." & UNICHAR(10) &
+"3) Deixe esfriar, enrole e passe no granulado. Bom apetite!"
