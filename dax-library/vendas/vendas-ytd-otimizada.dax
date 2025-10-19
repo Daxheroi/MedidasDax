@@ -1,7 +1,0 @@
--- Vendas YTD Otimizada
--- Categoria: Vendas
--- Descrição: Cálculo de vendas year-to-date otimizado
-
--- Data: 2025-10-16T13:27:45.198Z
-
-Vendas YTD = CALCULATE(SUM(Vendas[Valor]), DATESYTD(Calendario[Data]))
