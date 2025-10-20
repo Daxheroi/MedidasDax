@@ -1,0 +1,31 @@
+-- 004 Total Gross Income
+-- Categoria: Financeiro
+-- Descrição: O total projetado de receita bruta somando a receita base atual ([GrossIncome]) com projeções específicas para domingos, sábados e dias úteis baseado em contagens de datas filtradas na tabela de calendário (dCalendario) onde o campo [Dia_Hoje_Flag] é "Projetado". Para cada tipo de dia, conta-se o número de dias projetados e multiplica pela receita prevista correspondente.
+
+-- Data: 2025-10-20T12:29:36.365Z
+
+TotalGrossIncome =
+VAR CountSunday =
+    CALCULATE(
+        COUNT(dCalendario[Date]),
+        FILTER(ALLSELECTED(dCalendario), dCalendario[Semana_Dia] = 1 && dCalendario[Dia_Hoje_Flag] = "Projetado")
+    )
+VAR CountSaturday =
+    CALCULATE(
+        COUNT(dCalendario[Date]),
+        FILTER(ALLSELECTED(dCalendario), dCalendario[Semana_Dia] = 7 && dCalendario[Dia_Hoje_Flag] = "Projetado")
+    )
+VAR CountBusinessDay =
+    CALCULATE(
+        COUNT(dCalendario[Date]),
+        FILTER(ALLSELECTED(dCalendario), dCalendario[Semana_Flag] = "Util" && dCalendario[Dia_Hoje_Flag] = "Projetado")
+    )
+VAR IncomeSunday = COALESCE([002.3 Gross Income Forecast Sunday], 0)
+VAR IncomeSaturday = COALESCE([002.2 Gross Income Forecast Saturday], 0)
+VAR IncomeBusinessDay = COALESCE([002.1 Gross Income Forecast Business Day], 0)
+VAR BaseGrossIncome = COALESCE([001_Gross Income], 0)
+RETURN
+    BaseGrossIncome
+    + CountSunday * IncomeSunday
+    + CountSaturday * IncomeSaturday
+    + CountBusinessDay * IncomeBusinessDay
