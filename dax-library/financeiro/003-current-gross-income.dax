@@ -1,0 +1,21 @@
+-- 003 Current Gross Income
+-- Categoria: Financeiro
+-- Descrição: Esta medida retorna a previsão de receita bruta (Gross Income Forecast) para uma data específica considerando o tipo do dia da semana: domingo, dia útil (de segunda a sexta) ou sábado. Ela identifica o dia da semana correspondente à data atual no contexto (dCalendario[Date]) e retorna o valor previsto adequado. Caso nenhuma condição seja atendida, retorna 0.
+
+-- Data: 2025-10-20T12:27:26.659Z
+
+CurrentGrossIncome =
+VAR CurrentDate = MAX(dCalendario[Date])
+VAR DayOfWeek = WEEKDAY(CurrentDate, 1)
+RETURN
+SWITCH(
+    DayOfWeek,
+    1, COALESCE([GrossIncomeForecastSunday], 0),
+    2, COALESCE([GrossIncomeForecastBusinessDay], 0),
+    3, COALESCE([GrossIncomeForecastBusinessDay], 0),
+    4, COALESCE([GrossIncomeForecastBusinessDay], 0),
+    5, COALESCE([GrossIncomeForecastBusinessDay], 0),
+    6, COALESCE([GrossIncomeForecastBusinessDay], 0),
+    7, COALESCE([GrossIncomeForecastSaturday], 0),
+    0
+)
