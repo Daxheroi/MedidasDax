@@ -1,0 +1,28 @@
+-- 002.2 Gross Income Forecast Saturday
+-- Categoria: Financeiro
+-- Descrição: Finais de semanas - (Sábado)  Parte 2 de 2
+
+-- Data: 2025-10-20T12:21:25.842Z
+
+
+GrossIncomeForecastSaturday =
+VAR LastDate = CALCULATE(MAX(fBase[Data_A]), ALL(dCalendario)) + 1
+
+VAR DatesList = 
+    ADDCOLUMNS(
+        GENERATESERIES(1, 15),
+        "CurrentDate", DATEADD(LastDate, -[Value], DAY),
+        "WeekDay", WEEKDAY(DATEADD(LastDate, -[Value], DAY), 1),
+        "IsSaturday", IF(WEEKDAY(DATEADD(LastDate, -[Value], DAY), 1) = 7, 1, 0),
+        "GrossIncome", 
+            IF(
+                WEEKDAY(DATEADD(LastDate, -[Value], DAY), 1) = 7,
+                COALESCE(CALCULATE([001_Gross Income], FILTER(ALL(dCalendario), dCalendario[Date] = DATEADD(LastDate, -[Value], DAY))), 0),
+                0
+            )
+    )
+
+VAR SumIncome = SUMX(DatesList, [GrossIncome])
+VAR CountSaturdays = SUMX(DatesList, [IsSaturday])
+
+RETURN DIVIDE(SumIncome, CountSaturdays, 0)
