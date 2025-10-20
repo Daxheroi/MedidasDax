@@ -1,0 +1,14 @@
+-- TesteDax_Ajuste
+-- Categoria: Time Intelligence
+-- Descrição: Qualquer coisa teste 01.
+
+-- Data: 2025-10-20T18:24:33.699Z
+
+
+TP_Atendimento_HHMMSS =
+VAR DuracaoHoras = COALESCE(SUM('TBL_M_REL_TABULACAO_VOZ'[DURACAO_HORAS]), 0)
+VAR Hora = INT(DuracaoHoras)
+VAR Minuto = INT((DuracaoHoras - Hora) * 60)
+VAR Segundo = ROUND((((DuracaoHoras - Hora) * 60) - Minuto) * 60, 0)
+RETURN
+FORMAT(Hora, "00") & FORMAT(Minuto, "00") & FORMAT(Segundo, "00")
