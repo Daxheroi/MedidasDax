@@ -1,0 +1,47 @@
+-- 002.1 Gross Income Forecast Business Day
+-- Categoria: Financeiro
+-- Descrição: Parti 2 de 3 - A projeções podem delinear claramente os períodos de finais de semana.  (Dias Úteis)
+
+-- Data: 2025-10-20T12:19:56.729Z
+
+
+GrossIncomeForecastBusinessDay =
+VAR LastMaxDate = CALCULATE(MAX(fBase[Data_A]), ALL(dCalendario))
+VAR StartDate = LastMaxDate + 1
+
+// Função auxiliar para verificar se o dia é útil (segunda a sexta)
+VAR IsBusinessDay =
+    VAR DayOfWeek = WEEKDAY(dCalendario[Date], 2) // 2: Segunda=1 até Domingo=7
+    RETURN IF(DayOfWeek <= 5, 1, 0)
+
+// Lista de offsets para os últimos 15 dias
+VAR Offsets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+
+// Função que calcula a receita bruta para um determinado offset, somente se for dia útil
+VAR CalculateIncomeAtOffset =
+    ADDCOLUMNS(
+        Offsets,
+        "Date", StartDate - [Value],
+        "IsBusDay",
+            VAR CurrentDate = StartDate - [Value]
+            RETURN
+                CALCULATE(
+                    IF(IsBusinessDay, 1, 0),
+                    FILTER(ALL(dCalendario), dCalendario[Date] = CurrentDate)
+                ),
+        "Income",
+            VAR CurrentDate = StartDate - [Value]
+            RETURN
+                CALCULATE(
+                    COALESCE([001_Gross Income], 0),
+                    FILTER(ALL(dCalendario), dCalendario[Date] = CurrentDate)
+                )
+    )
+
+// Iterar o cálculo para somar os valores considerando apenas dias úteis
+VAR IncomeTable = CalculateIncomeAtOffset
+VAR TotalIncome = SUMX(FILTER(IncomeTable, [IsBusDay] = 1), [Income])
+VAR TotalBusinessDays = SUMX(IncomeTable, [IsBusDay])
+
+RETURN
+DIVIDE(TotalIncome, TotalBusinessDays, 0)
