@@ -1,0 +1,20 @@
+-- teste
+-- Categoria: Financeiro
+
+-- Data: 2025-10-20T01:23:37.445Z
+
+
+002.1 Gross Income Forecast Business Day = 
+VAR DiaMax = CALCULATE(MAX(fBase[Data_A]), ALL(dCalendario)) + 1
+VAR DiasTabela = FILTER(
+    ADDCOLUMNS(
+        CALENDAR(DiaMax - 15, DiaMax - 1),
+        "DiaSemana", WEEKDAY([Date], 1),
+        "IsBusinessDay", IF(WEEKDAY([Date], 1) IN {2,3,4,5,6}, 1, 0),
+        "GrossIncomeDay", CALCULATE([001_Gross Income], FILTER(ALL(dCalendario), dCalendario[Date] = [Date]))
+    ),
+    [IsBusinessDay] = 1
+)
+VAR Resultado = SUMX(DiasTabela, [GrossIncomeDay])
+VAR QtdeDiasUteis = SUMX(DiasTabela, [IsBusinessDay])
+RETURN DIVIDE(Resultado, QtdeDiasUteis)
