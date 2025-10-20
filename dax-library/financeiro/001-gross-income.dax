@@ -1,0 +1,11 @@
+-- 001_Gross Income
+-- Categoria: Financeiro
+-- Descrição: Inicio de 1 á 4 Forecast - A previsão se evoluiu para a prática do plano de demanda diária em um prognóstico diário dos negócios.
+
+-- Data: 2025-10-20T12:17:07.373Z
+
+GrossIncome_Total =
+CALCULATE(
+    COALESCE(SUM(fBase[Gross Income]), 0),
+    ALLSELECTED(fBase)
+)
