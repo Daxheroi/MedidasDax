@@ -1,0 +1,52 @@
+-- 002.3 Gross Income Forecast Sunday
+-- Categoria: Financeiro
+-- Descrição: Domingo - Parte 2 de 3 -  95% de acertos nos testes com esse período.
+
+-- Data: 2025-10-20T12:22:57.637Z
+
+
+GrossIncomeForecastSunday = 
+VAR MaxDate = CALCULATE(MAX(fBase[Data_A]), ALL(dCalendario))
+VAR ReferenceDate = MaxDate + 1
+
+// Função local para verificar se o dia da semana é domingo (1 = domingo)
+VAR IsSunday = 
+    VAR CurrentDate = SELECTEDVALUE(dCalendario[Date])
+    RETURN WEEKDAY(CurrentDate, 1) = 1
+
+// Função auxiliar para obter o valor do Gross Income do dia se for domingo
+VAR GetGrossIncomeIfSunday = 
+    VAR TargetDate = 
+        DATEADD(dCalendario[Date], -1, DAY)
+    VAR DayOfWeek = WEEKDAY(TargetDate, 1)
+    VAR GrossIncomeValue = CALCULATE(
+        [001_Gross Income],
+        FILTER(ALL(dCalendario), dCalendario[Date] = TargetDate)
+    )
+    RETURN IF(DayOfWeek = 1, COALESCE(GrossIncomeValue, 0), 0)
+
+// Calcula soma dos últimos 15 dias que sejam domingo (simplificado e dinâmico)
+VAR DateRange = DATESINPERIOD(
+    dCalendario[Date],
+    ReferenceDate - 1,
+    -15,
+    DAY
+)
+
+VAR SundaysGrossIncome = 
+    SUMX(
+        FILTER(
+            DateRange,
+            WEEKDAY(dCalendario[Date], 1) = 1
+        ),
+        COALESCE(
+            CALCULATE([001_Gross Income], ALL(dCalendario), dCalendario[Date]),
+            0
+        )
+    )
+
+VAR SundaysCount = COUNTROWS(
+    FILTER(DateRange, WEEKDAY(dCalendario[Date], 1) = 1)
+)
+
+RETURN DIVIDE(SundaysGrossIncome, SundaysCount, 0)
