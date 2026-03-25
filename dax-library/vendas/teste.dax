@@ -1,0 +1,15 @@
+-- teste
+-- Categoria: Vendas
+
+-- Data: 2026-03-25T20:34:23.152Z
+
+
+QtdPacientes_C2 =
+VAR Resultado =
+    CALCULATE(
+        [Qtd. Pacientes],
+        KEEPFILTERS(dTipoCombo[Tipo Combo] = 2),
+        KEEPFILTERS(dTipoAtendimento[Tipo Atendimento] = "ATD_RECEPCAO")
+    )
+RETURN
+    COALESCE(Resultado, 0)
