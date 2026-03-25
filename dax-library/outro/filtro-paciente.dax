@@ -1,0 +1,14 @@
+-- Filtro Paciente
+-- Categoria: Outro
+
+-- Data: 2026-03-25T20:34:56.482Z
+
+QuantidadePacientes_C2 =
+VAR QtdPacientesFiltro =
+    CALCULATE(
+        [Qtd. Pacientes],
+        KEEPFILTERS(dTipoCombo[Tipo Combo] = 2),
+        KEEPFILTERS(dTipoAtendimento[Tipo Atendimento] = "ATD_RECEPCAO")
+    )
+RETURN
+    COALESCE(QtdPacientesFiltro, 0)
