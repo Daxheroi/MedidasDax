@@ -1,0 +1,22 @@
+-- RESULTADO ANTEREIORES
+-- Categoria: Financeiro
+-- Descrição: TESTE DA FERRAMENTA
+
+-- Data: 2026-04-28T18:29:49.311Z
+
+LY_Value_LastYearAttendance =
+VAR lyValor =
+    CALCULATE(
+        [Vlr. Atendimento],
+        FILTER(
+            ALL(dCalendario[Data]),
+            dCalendario[Data] = DATEADD(MAX(dCalendario[Data]), -1, YEAR)
+                && dCalendario[Data] <= MAX(fAtendimentos[Data Atendimento])
+        )
+    )
+RETURN
+    IF(
+        ISBLANK(lyValor) || lyValor = 0,
+        BLANK(),
+        lyValor
+    )
